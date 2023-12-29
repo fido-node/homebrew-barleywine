@@ -1,21 +1,39 @@
 class RustyBelt < Formula
   desc "Rust replacement for tmux powerline"
   homepage "https://rusty-belt.fidonode.me/"
-  url "https://github.com/fido-node/rusty-belt/archive/refs/tags/v0.0.4.tar.gz"
-  sha256 "127554c0418f6f56223e6e1691197f61ca1a6f6744f2578da71e4c9614b2c5fd"
+  url "https://github.com/fido-node/rusty-belt/archive/refs/tags/v0.0.6.tar.gz"
+  sha256 "7e128c073c022730d16ba8059328238f40cf8206cf04ad0b21a426b944a0f373"
   license "Apache-2.0"
 
   depends_on "rust" => :build
+  depends_on "protobuf" => :build
 
   def install
     system "cargo", "install", *std_cargo_args
+    pkgshare.install "examples/config.yaml"
+    pkgshare.install "examples/log4rs.yaml"
+  end
+
+  def caveats
+    <<~EOS
+      Example configuration (config.yaml, log4rs.yaml) has been installed to:
+        #{opt_pkgshare}
+      Copy it to ~/Library/Application Support/rusty-belt on Mac
+	or to ~/.config/rusty-belt on Linux
+      Mac:
+      mkdir -p ~/Library/Application\\ Support/rusty-belt
+      cp #{opt_pkgshare}/*.yaml ~/Library/Application\\ Support/rusty-belt
+      Linux:
+      mkdir -p  ~/.config/rusty-belt
+      cp #{opt_pkgshare}/*.yaml ~/.config/rusty-belt
+
+    EOS
   end
 
   service do
-    name macos: "./resources/rusty-belt",
-         linux: "./resourcer/rusty-belt"
+    run [opt_bin/"rusty_belt_server"]
+    keep_alive true
   end
-
 
 
   test do
