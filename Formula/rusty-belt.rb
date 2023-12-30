@@ -1,8 +1,8 @@
 class RustyBelt < Formula
   desc "Rust replacement for tmux powerline"
   homepage "https://rusty-belt.fidonode.me/"
-  url "https://github.com/fido-node/rusty-belt/archive/refs/tags/v0.0.6.tar.gz"
-  sha256 "7e128c073c022730d16ba8059328238f40cf8206cf04ad0b21a426b944a0f373"
+  url "https://github.com/fido-node/rusty-belt/archive/refs/tags/v0.0.13.tar.gz"
+  sha256 "0a68e3cea1e3d16f964f4e8371434ffee9588954ea15e146022137ac5ec4bf12"
   license "Apache-2.0"
 
   depends_on "rust" => :build
